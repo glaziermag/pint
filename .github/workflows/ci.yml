@@ -99,6 +99,13 @@ jobs:
           - test-py313
           - test-py314
         numpy: [null, "numpy>=2.0.0,<2.1.0", "numpy>=2.4.0"]
+        exclude:
+          # numpy 2.0.x supports Python <= 3.12: no cp313/cp314 wheels, and the
+          # self-built sdist crashes at import on Windows (access violation)
+          - environment: test-py313
+            numpy: "numpy>=2.0.0,<2.1.0"
+          - environment: test-py314
+            numpy: "numpy>=2.0.0,<2.1.0"
     steps:
       - uses: actions/checkout@v6.0.2
       - uses: prefix-dev/setup-pixi@v0.9.4
