@@ -105,9 +105,11 @@ jobs:
         with:
           environments: ${{ matrix.environment }}
           log-level: vvv
+      - name: Install pip
+        run: pixi add pip
       - name: Install numpy
         if: ${{ matrix.numpy != null }}
-        run: pip install "${{matrix.numpy}}"
+        run: pixi run -e ${{ matrix.environment }} pip install "${{matrix.numpy}}"
       - run: pixi run --environment ${{ matrix.environment }} test
 
   test-macos:
@@ -125,9 +127,11 @@ jobs:
         with:
           environments: ${{ matrix.environment }}
           log-level: vvv
+      - name: Install pip
+        run: pixi add pip
       - name: Install numpy
         if: ${{ matrix.numpy != null }}
-        run: pip install "${{matrix.numpy}}"
+        run: pixi run -e ${{ matrix.environment }} pip install "${{matrix.numpy}}"
       - run: pixi run --environment ${{ matrix.environment }} test
 
   publish:
